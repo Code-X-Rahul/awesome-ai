@@ -28,30 +28,34 @@ const MusicPage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       prompt: "",
-    }
+    },
   });
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      setMusic(undefined);
+    toast.error(
+      "This feature is currently under development. Please be Patient"
+    );
 
-      const response = await axios.post('/api/music', values);
-      console.log(response)
+    // try {
+    //   setMusic(undefined);
 
-      setMusic(response.data.audio);
-      form.reset();
-    } catch (error: any) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
-      } else {
-        toast.error("Something went wrong.");
-      }
-    } finally {
-      router.refresh();
-    }
-  }
+    //   const response = await axios.post('/api/music', values);
+    //   console.log(response)
+
+    //   setMusic(response.data.audio);
+    //   form.reset();
+    // } catch (error: any) {
+    //   if (error?.response?.status === 403) {
+    //     proModal.onOpen();
+    //   } else {
+    //     toast.error("This feature is currently under development. Please be Patient");
+    //   }
+    // } finally {
+    //   router.refresh();
+    // }
+  };
 
   return (
     <div>
@@ -83,7 +87,12 @@ const MusicPage = () => {
                 </FormItem>
               )}
             />
-            <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
+            <Button
+              className="col-span-12 lg:col-span-2 w-full"
+              type="submit"
+              disabled={isLoading}
+              size="icon"
+            >
               Generate
             </Button>
           </form>
@@ -93,9 +102,7 @@ const MusicPage = () => {
             <Loader />
           </div>
         )}
-        {!music && !isLoading && (
-          <Empty label="No music generated." />
-        )}
+        {!music && !isLoading && <Empty label="No music generated." />}
         {music && (
           <audio controls className="w-full mt-8">
             <source src={music} />
@@ -104,6 +111,6 @@ const MusicPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default MusicPage;

@@ -34,22 +34,25 @@ const VideoPage = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      setVideo(undefined);
+    toast.error("This feature is currently under development. Please be Patient");
+    // try {
+    //   setVideo(undefined);
 
-      const response = await axios.post('/api/video', values);
+    //   const response = await axios.post('/api/video', values);
 
-      setVideo(response.data[0]);
-      form.reset();
-    } catch (error: any) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
-      } else {
-        toast.error("Something went wrong.");
-      }
-    } finally {
-      router.refresh();
-    }
+    //   setVideo(response.data[0]);
+    //   form.reset();
+    // } catch (error: any) {
+    //   if (error?.response?.status === 403) {
+    //     proModal.onOpen();
+    //   } else {
+    //     // toast.error("Something went wrong.");
+    //     toast.error("This feature is currently under development. Please be Patient");
+
+    //   }
+    // } finally {
+    //   router.refresh();
+    // }
   }
 
   return (
